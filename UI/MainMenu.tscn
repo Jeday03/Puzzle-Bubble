@@ -1,0 +1,211 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Backgrounds/backgroundColorForest.png" type="Texture" id=1]
+[ext_resource path="res://UI/ToucyBubble.theme" type="Theme" id=2]
+[ext_resource path="res://Fonts/DigitalDisco.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://UI/MainMenu.gd" type="Script" id=4]
+[ext_resource path="res://UI/LevelSelect.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/OptionsMenu.tscn" type="PackedScene" id=6]
+[ext_resource path="res://UI/HighScores.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Sprites/Box3.png" type="Texture" id=8]
+[ext_resource path="res://Particles/BubbleCannon.tscn" type="PackedScene" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+outline_size = 8
+outline_color = Color( 0.113725, 0.0901961, 0.235294, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=12]
+resource_name = "Intro"
+length = 25.0
+loop = true
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/BubbleCannon:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 17 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=13]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/BubbleCannon:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 8 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 8 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 8 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=18]
+animations = [ {
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+} ]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 7
+
+[node name="BubbleCannon" parent="CanvasLayer" instance=ExtResource( 9 )]
+position = Vector2( -64, 320 )
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+
+[node name="MenuPanel" type="Panel" parent="CanvasLayer/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -150.0
+margin_right = 200.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 400, 300 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MenuPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -84.0
+margin_top = -121.5
+margin_right = 84.0
+margin_bottom = 121.5
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/Control/MenuPanel/VBoxContainer"]
+margin_right = 175.0
+margin_bottom = 99.0
+custom_fonts/font = SubResource( 1 )
+text = "Toucy
+Bubble"
+align = 1
+valign = 1
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/MenuPanel/VBoxContainer"]
+margin_top = 103.0
+margin_right = 175.0
+margin_bottom = 243.0
+custom_constants/hseparation = 24
+columns = 2
+
+[node name="ButtonNewGame" type="Button" parent="CanvasLayer/Control/MenuPanel/VBoxContainer/GridContainer"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MenuPanel/VBoxContainer/GridContainer"]
+margin_left = 56.0
+margin_top = 4.0
+margin_right = 175.0
+margin_bottom = 28.0
+text = "New Game"
+align = 1
+
+[node name="ButtonHighScore" type="Button" parent="CanvasLayer/Control/MenuPanel/VBoxContainer/GridContainer"]
+margin_top = 36.0
+margin_right = 32.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 32, 32 )
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/MenuPanel/VBoxContainer/GridContainer"]
+margin_left = 56.0
+margin_top = 40.0
+margin_right = 175.0
+margin_bottom = 64.0
+text = "High Score"
+align = 1
+
+[node name="Buttonoptions" type="Button" parent="CanvasLayer/Control/MenuPanel/VBoxContainer/GridContainer"]
+margin_top = 72.0
+margin_right = 32.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 32, 32 )
+
+[node name="Label3" type="Label" parent="CanvasLayer/Control/MenuPanel/VBoxContainer/GridContainer"]
+margin_left = 56.0
+margin_top = 76.0
+margin_right = 175.0
+margin_bottom = 100.0
+text = "Options"
+align = 1
+
+[node name="ButtonQuit" type="Button" parent="CanvasLayer/Control/MenuPanel/VBoxContainer/GridContainer"]
+margin_top = 108.0
+margin_right = 32.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 32, 32 )
+
+[node name="Label4" type="Label" parent="CanvasLayer/Control/MenuPanel/VBoxContainer/GridContainer"]
+margin_left = 56.0
+margin_top = 112.0
+margin_right = 175.0
+margin_bottom = 136.0
+text = "Quit"
+align = 1
+
+[node name="LevelSelect" parent="CanvasLayer/Control" instance=ExtResource( 5 )]
+
+[node name="OptionsMenu" parent="CanvasLayer/Control" instance=ExtResource( 6 )]
+
+[node name="HighScores" parent="CanvasLayer/Control" instance=ExtResource( 7 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Intro"
+anims/Intro = SubResource( 12 )
+anims/RESET = SubResource( 13 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 893, 516 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 18 )
+animation = "Idle"
+playing = true
+
+[connection signal="pressed" from="CanvasLayer/Control/MenuPanel/VBoxContainer/GridContainer/ButtonNewGame" to="." method="_on_ButtonNewGame_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MenuPanel/VBoxContainer/GridContainer/ButtonHighScore" to="." method="_on_ButtonHighScore_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MenuPanel/VBoxContainer/GridContainer/Buttonoptions" to="." method="_on_Buttonoptions_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MenuPanel/VBoxContainer/GridContainer/ButtonQuit" to="." method="_on_ButtonQuit_pressed"]
